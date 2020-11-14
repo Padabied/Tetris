@@ -94,6 +94,11 @@ public class Game {
             //some logic with checking full lines and score
             createNewFigure();
         }
+        else {
+            isOver = true;
+            System.out.println("Game Over #2");
+            System.exit(0);
+        }
     }
 
     public void start() {
@@ -103,7 +108,7 @@ public class Game {
         for (int i = 0; i < 100; i++) {
             stepDown();
             field.printField();
-            System.out.println();
+
         }
 
     }

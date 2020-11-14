@@ -11,6 +11,7 @@ public class Field {
         for (String[] line : field) {
             Arrays.fill(line, " ");
         }
+        Arrays.fill(field[field.length-1], "X");  //test flour
     }
 
     public String[][] getField() {
@@ -26,7 +27,7 @@ public class Field {
     }
 
     public void printField() {
-        for (int i = 4; i < field.length -1; i++) {
+        for (int i = 4; i < field.length; i++) {
             String stringLine = Arrays.toString(field[i]).replaceAll(",", "");
             stringLine = stringLine.substring(1, stringLine.length()-1);
             ConsoleHelper.print(stringLine);
