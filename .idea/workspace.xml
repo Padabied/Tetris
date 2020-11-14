@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cb86797f-aa45-40b6-98f1-0a9a8b5f1027" name="Default Changelist" comment="" />
+    <list default="true" id="cb86797f-aa45-40b6-98f1-0a9a8b5f1027" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/figures/GFigure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/figures/GFigure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/figures/IFigure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/figures/IFigure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/figures/QFigure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/figures/QFigure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/figures/TFigure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/figures/TFigure.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,7 +24,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1kBrtAplhrIE4WujMygxzxDXZbt" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="autoscrollToSource" value="true" />
@@ -26,6 +38,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
   </component>
   <component name="RunManager" selected="Application.Game">
     <configuration name="Field" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -67,21 +80,37 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1605267011694" />
-    <state width="1493" height="296" key="GridCell.Tab.0.bottom" timestamp="1605281049063">
+    <state width="1493" height="326" key="GridCell.Tab.0.bottom" timestamp="1605358336703">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="296" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1605281049063" />
-    <state width="1493" height="296" key="GridCell.Tab.0.center" timestamp="1605281049062">
+    <state width="1493" height="326" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1605358336703" />
+    <state width="1493" height="326" key="GridCell.Tab.0.center" timestamp="1605358336703">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="296" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1605281049062" />
-    <state width="1493" height="296" key="GridCell.Tab.0.left" timestamp="1605281049062">
+    <state width="1493" height="326" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1605358336703" />
+    <state width="1493" height="326" key="GridCell.Tab.0.left" timestamp="1605358336702">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="296" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1605281049062" />
-    <state width="1493" height="296" key="GridCell.Tab.0.right" timestamp="1605281049062">
+    <state width="1493" height="326" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1605358336702" />
+    <state width="1493" height="326" key="GridCell.Tab.0.right" timestamp="1605358336703">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="296" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1605281049062" />
+    <state width="1493" height="326" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1605358336703" />
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1605357022735">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1605357022735" />
+    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1605357022734">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1605357022734" />
+    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1605357022734">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1605357022734" />
+    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1605357022734">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1605357022734" />
   </component>
 </project>

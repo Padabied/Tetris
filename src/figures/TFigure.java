@@ -61,7 +61,7 @@ public enum TFigure implements Figure {
 
     @Override
     public int getHigh() {
-        return body.length;
+        return body.length-1;
     }
 
     @Override
