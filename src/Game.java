@@ -47,7 +47,7 @@ public class Game {
         } catch (Exception ignored) {}
         downLevel = figure.getHigh();
         leftLevel = 6;
-        rightLevel = leftLevel + figure.getLength();
+        rightLevel = leftLevel + figure.getLength()-1;
 
         while (downLevel < 3) {
             stepDown();
@@ -67,6 +67,19 @@ public class Game {
             }
         }
         return result && (downLevel + 1) < field.getHeight() -1;   //try <=
+    }
+
+    private boolean canStepLeftBeDone() {
+        int stepLeft =  leftLevel-1;
+        if (stepLeft == -1) return false;
+
+        for (int i = 0; i < figure.getHigh(); i++) {
+            String figureLeftColumn = field.getField()[downLevel -i][leftLevel];
+            String fieldLeftColumn = field.getField()[downLevel -i][leftLevel -1];
+
+            if (figureLeftColumn.equals("X") && fieldLeftColumn.equals("X")) return false;
+        }
+        return true;
     }
 
     private void stepDown() {
@@ -101,16 +114,31 @@ public class Game {
         }
     }
 
-    public void start() {
-        createNewFigure();
-        field.printField();
+    public void stepLeft() {
+        if (canStepLeftBeDone()) {
+            for (int i = 0; i <figure.getLength(); i++) {
+                for (int j = 0; j < figure.getHigh()+1; j++) {
+                    String figureLeftElement = field.getField()[downLevel -j][leftLevel+i];
+                    String fieldLeftElement = field.getField()[downLevel -j][leftLevel -1+i];
 
-        for (int i = 0; i < 100; i++) {
-            stepDown();
-            field.printField();
-
+                    if (figureLeftElement.equals("X") && fieldLeftElement.equals(" ")) {
+                        field.getField()[downLevel -j][leftLevel+i] = " ";
+                        field.getField()[downLevel -j][leftLevel -1+i] = "X";
+                    }
+                }
+            }
+            leftLevel--;
+            rightLevel--;
         }
+    }
 
+    public void start() {
+       createNewFigure();
+       field.printField();
+       for (int i = 0; i < 5; i++) {
+           stepLeft();
+       }
+       field.printField();
     }
 
     public static void main(String[] args) {
