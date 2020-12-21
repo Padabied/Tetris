@@ -1,3 +1,4 @@
+package game;
 
 import figures.*;
 
@@ -5,7 +6,7 @@ import java.util.Arrays;
 
 public class Field {
 
-    private String[][] field = new String[24][15];
+    private  String[][] field = new String[24][15];
 
     public Field() {
         for (String[] line : field) {
@@ -30,7 +31,7 @@ public class Field {
 //        for (int i = 4; i < field.length; i++) {
 //            String stringLine = Arrays.toString(field[i]).replaceAll(",", "");
 //            stringLine = stringLine.substring(1, stringLine.length()-1);
-//            ConsoleHelper.print(stringLine);
+//            game.ConsoleHelper.print(stringLine);
 //        }
 
         for(String[] line : field) {

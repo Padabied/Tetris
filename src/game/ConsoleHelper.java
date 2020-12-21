@@ -1,3 +1,5 @@
+package game;
+
 public class ConsoleHelper {
 
     public static void print(String str) {

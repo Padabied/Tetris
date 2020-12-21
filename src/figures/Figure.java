@@ -2,10 +2,13 @@ package figures;
 
 public interface Figure {
 
-    Figure turnLeft();
-    Figure turnRight();
-    int getHigh();
-    int getLength();
+    Figure turn();
+    default int getHigh() {
+        return this.getBody().length-1;
+    }
+    default int getLength() {
+        return this.getBody()[0].length;
+    }
     String[][] getBody();
 
 }

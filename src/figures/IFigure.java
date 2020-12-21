@@ -12,7 +12,7 @@ public enum IFigure implements Figure {
                 new String[]      {"X", "X", "X", "X"}});
 
 
-    public Figure turnRight() {
+    public Figure turn() {
         switch (this.name()) {
             case "ONE":
                 return IFigure.TWO;
@@ -22,27 +22,15 @@ public enum IFigure implements Figure {
         return this;
     }
 
-    public Figure turnLeft() {
-      return turnRight();
-    }
-
     private String[][] body;
 
     IFigure(String[][] body) {
         this.body = body;
     }
 
+    @Override
     public String[][] getBody() {
         return body;
     }
 
-    @Override
-    public int getHigh() {
-        return body.length-1;
-    }
-
-    @Override
-    public int getLength() {
-        return body[0].length;
-    }
 }

@@ -3,20 +3,10 @@ package figures;
 public enum QFigure implements Figure {
 
     ONE(new String[][] {
-            new String[]      {"X", "X", "X"},
-            new String[]      {"X", "X", "X"},
-            new String[]      {"X", "X", "X"}}),
+            new String[]      {"X", "X"},
+            new String[]      {"X", "X"}});
 
-    TWO(new String[][] {
-            new String[]      {"X", "X", "X"},
-            new String[]      {"X", "X", "X"},
-            new String[]      {"X", "X", "X"}});
-
-    public Figure turnRight() {
-        return this;
-    }
-
-    public Figure turnLeft() {
+    public Figure turn() {
         return this;
     }
 
@@ -26,17 +16,9 @@ public enum QFigure implements Figure {
         this.body = body;
     }
 
+    @Override
     public String[][] getBody() {
         return body;
     }
 
-    @Override
-    public int getHigh() {
-        return body.length-1;
-    }
-
-    @Override
-    public int getLength() {
-        return body[0].length;
-    }
 }
