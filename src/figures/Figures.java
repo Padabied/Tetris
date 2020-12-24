@@ -3,9 +3,10 @@ package figures;
 import java.util.ArrayList;
 import java.util.List;
 
+//This class is used in turn figure methods
 public class Figures {
 
-    //Возвращает матрицу для фигуры с учетом пространства, которое ей нужно для поворота
+    //Returns the matrix of the figure with considering of place that figure requires to be turned
     public static String[][] getMatrix(Figure figure) {
         String figureName = figure.getClass().getSimpleName();
         String[][] result = null;
@@ -13,10 +14,10 @@ public class Figures {
             case "IFigure" :
                 if (figure == IFigure.ONE) {
                     result = new String[][] {
-                                              new String[] {" ", "X", " ", " "},
-                                              new String[] {" ", "X", " ", " "},
-                                              new String[] {" ", "X", " ", " "},
-                                              new String[] {" ", "X", " ", " "}};
+                                              new String[] {"X", " ", " ", " "},
+                                              new String[] {"X", " ", " ", " "},
+                                              new String[] {"X", " ", " ", " "},
+                                              new String[] {"X", " ", " ", " "}};
                     break;
                 }
                 if (figure == IFigure.TWO) {
@@ -110,7 +111,7 @@ public class Figures {
         return result;
     }
 
-    // Возвращает индексы клеток, которые общие и у текущей фигуры и у перевернутой
+    //Returns common cells indexes of current and turned figure matrix (taken from getMatrix() method)
     public static List<String> getIndexesOfCommonCellsOfCurrentAndTurnedFigure(Figure currentFigure) {
         List<String> result = new ArrayList<>();
         String[][] currentFigureMatrix = getMatrix(currentFigure);
@@ -127,8 +128,7 @@ public class Figures {
         return result;
     }
 
-    //Возвращает индексы клеток, которые следует изменить c " " на Х при повороте фигуры
-    //Клетки , общие для текущей и перевернутой фигуры пропускаются
+    //Returns indexes of cells to be converted from " " to "X" while turning the figure
     public static List<String> getIndexesOfCellsToTurn(Figure currentFigure) {
         List<String> result = new ArrayList<>();
         List<String> commonCells = Figures.getIndexesOfCommonCellsOfCurrentAndTurnedFigure(currentFigure);
@@ -148,7 +148,7 @@ public class Figures {
         return result;
     }
 
-    //Возвращает индексы клеток, которые при повороте следует изменить с Х на " "
+    //Returns indexes of cells to be converted from "X" to " " while turning the figure
     public static List<String> getIndexesOfCellsToNull(Figure currentFigure) {
         List<String> result = new ArrayList<>();
         List<String> commonCells = getIndexesOfCommonCellsOfCurrentAndTurnedFigure(currentFigure);

@@ -9,7 +9,7 @@ public enum IFigure implements Figure {
                 new String[]      {"X"}}),
 
     TWO(new String[][] {
-                new String[]      {"X", "X", "X", "X"}});
+            new String[]      {"X", "X", "X", "X"}});
 
 
     public Figure turn() {

@@ -2,9 +2,9 @@ package command;
 
 import game.Game;
 
-public class LeftCommand implements Command {
+public class TurnCommand implements Command {
     @Override
     public void execute() {
-        Game.stepLeft();
+        Game.turnFigure();
     }
 }

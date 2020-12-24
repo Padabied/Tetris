@@ -1,21 +1,25 @@
 package game;
-
 import javax.swing.*;
-import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException, IOException {
+    private static JFrame frame;
 
-        Field field = Game.getField();
-        field.printField();
+    public static void main(String[] args) throws InterruptedException  {
+        frame = new JFrame("Tetris");
+        View view = new View(frame);
+        frame.add(view);
+        frame.setSize(View.WIDTH + 20, View.HEIGHT + 40);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.repaint();
         Game.createNewFigure();
 
         while (true) {
-            Game.getField().printField();
-            Thread.sleep(1000);
+            frame.repaint();
+            Thread.sleep(500);
             Game.stepDown();
         }
     }
-
 }

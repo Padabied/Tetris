@@ -1,5 +1,6 @@
 package game;
 
+import command.Command;
 import command.CommandExecutor;
 import command.Operation;
 
@@ -8,11 +9,17 @@ import java.awt.event.KeyEvent;
 
 public class Controller extends KeyAdapter {
 
+    private CommandExecutor executor;
+
+    public Controller(CommandExecutor executor) {
+        this.executor = executor;
+    }
+
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {
         Operation operation = Operation.getOperation(e.getKeyCode());
         if (operation != null) {
-            CommandExecutor.execute(operation);
+            executor.execute(operation);
         }
     }
 }

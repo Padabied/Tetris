@@ -1,9 +1,6 @@
 package game;
 
 import figures.*;
-
-import javax.swing.*;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +27,7 @@ public class Game {
 
     public static int getScore() {return score;}
 
+    // Creates new figure and merges it with the field. First 4 String arrays of the field reserved for new figure
     public static void createNewFigure() {
         int x = new Random().nextInt(4);
         int y = new Random().nextInt(2);
@@ -41,7 +39,7 @@ public class Game {
                 figure = IFigure.values()[y];
                 break;
             case 2:
-                figure = QFigure.values()[y];
+                figure = QFigure.ONE;
                 break;
             case 3:
                 figure = TFigure.values()[y];
@@ -53,12 +51,14 @@ public class Game {
     private static void mergeFieldAndFigure() {
         int figureLength = figure.getLength();
         try {
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < figure.getHigh() + 1; i++) {    // 4 ---> figure.getHigh()
                 for (int j = 6; j < 6 + figureLength; j++) {
                     field.getField()[i][j] = figure.getBody()[i][j - 6];
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         downLevel = figure.getHigh();
         leftLevel = 6;
         rightLevel = leftLevel + figure.getLength()-1;
@@ -69,42 +69,49 @@ public class Game {
     }
 
     private static boolean canStepBeDone() {
-        boolean result = true;
+        if (downLevel == 23) return false;
 
-        String[] figureLowestLevel = field.getField()[downLevel];
-        String[] nextLine = field.getField()[downLevel + 1];
+        for (int i = 0; i < field.getHeight() - 1; i++) {
+            for (int j = 0; j < field.getLength(); j++) {
+                String upper = field.getField()[i][j];
+                String down = field.getField()[i + 1][j];
 
-        for (int i = leftLevel ; i < leftLevel + figure.getLength(); i++) {
-            if (figureLowestLevel[i].equals("X") && nextLine[i].equals("X")) {
-                result = false;
-                break;
+                if (upper.equals("X") && down.equals("O")) {
+                    return false;
+                }
             }
         }
-        return result && (downLevel + 1) < field.getHeight() -1;   //try <=
+        return true;
     }
 
     private static boolean canStepLeftBeDone() {
-        int stepLeft =  leftLevel-1;
-        if (stepLeft == -1) return false;
+        if (leftLevel - 1 == -1) return false;
 
-        for (int i = 0; i < figure.getHigh(); i++) {
-            String figureLeftColumn = field.getField()[downLevel -i][leftLevel];
-            String fieldLeftColumn = field.getField()[downLevel -i][leftLevel -1];
+        for (int i = 0; i < field.getHeight() - 1; i++) {
+            for (int j = 1; j < field.getLength(); j++) {
+                String left = field.getField()[i][j - 1];
+                String right = field.getField()[i][j];
 
-            if (figureLeftColumn.equals("X") && fieldLeftColumn.equals("X")) return false;
+                if (right.equals("X") && left.equals("O")) {
+                    return false;
+                }
+            }
         }
         return true;
     }
 
     private static boolean canStepRightBeDone() {
-        int stepRight = rightLevel +1;
-        if (stepRight == 15) return false;
+        if (rightLevel + 1 == 15) return false;
 
-        for (int i = 0; i < figure.getLength(); i++) {
-            String figureRightColumn = field.getField()[downLevel - i][rightLevel];
-            String fieldRightColumn = field.getField()[downLevel - i][rightLevel + 1];
+        for (int i = 0; i <= field.getHeight() - 1; i++) {
+            for (int j = 0; j < field.getLength() - 1; j++) {
+                String left = field.getField()[i][j];
+                String right = field.getField()[i][j + 1];
 
-            if (figureRightColumn.equals("X") && fieldRightColumn.equals("X")) return false;
+                if (left.equals("X") && right.equals("O")) {
+                    return false;
+                }
+            }
         }
         return true;
     }
@@ -112,9 +119,18 @@ public class Game {
     private static boolean canFigureBeTurned() {
         if (figure == QFigure.ONE) return true;
 
-        String[][] fieldWithFigure = extractFieldWithFigure();
-        String[][] turnedFigureMatrix = Figures.getMatrix(figure.turn());
-        List<String> commonCell = Figures.getIndexesOfCommonCellsOfCurrentAndTurnedFigure(figure);
+        String[][] fieldWithFigure;
+        String[][] turnedFigureMatrix;
+        List<String> commonCell;
+
+        try {
+            fieldWithFigure = extractFieldWithFigure();
+            turnedFigureMatrix = Figures.getMatrix(figure.turn());
+            commonCell = Figures.getIndexesOfCommonCellsOfCurrentAndTurnedFigure(figure);
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            return false;
+        }
 
         for (int i = 0; i < fieldWithFigure.length; i++) {
             for (int j = 0; j < fieldWithFigure[0].length; j++) {
@@ -129,16 +145,15 @@ public class Game {
         return true;
     }
 
-    //Вырезает участок поля, в котором содержится фигура. Ширина и высота берется из Figures.getMatrix
+    //Extract a part of field where figure exists
     private static String[][] extractFieldWithFigure() {
         int matrixHigh = Figures.getMatrix(figure).length;
-        int leftLevelForExtract = (figure == IFigure.ONE) ? leftLevel-1 : leftLevel;
         String[][] result = new String[matrixHigh][matrixHigh];
 
         int iCount = 0;
         int jCount = 0;
-        for (int i = downLevel - matrixHigh+1; i <= downLevel; i++) {
-            for (int j = leftLevelForExtract; j < leftLevelForExtract + matrixHigh; j++) {
+        for (int i = downLevel - matrixHigh + 1; i <= downLevel; i++) {   //OK
+            for (int j = leftLevel; j < leftLevel + matrixHigh; j++) {    //OK
                 result[iCount][jCount] = field.getField()[i][j];
                 jCount++;
             }
@@ -150,12 +165,14 @@ public class Game {
 
     public static void stepDown() {
         //Doing step
-        if (canStepBeDone()) {
+        boolean canStepBeDone = canStepBeDone();
+
+        if (canStepBeDone) {
 
             for (int i = 0; i < figure.getHigh()+1; i++) {
                 String[] nextLevel = field.getField()[downLevel+1-i];
                 String[] figureLowestLevel = field.getField()[downLevel-i];
-                for (int j = leftLevel; j < figure.getLength() + leftLevel; j++) {
+                for (int j = leftLevel; j < leftLevel + figure.getLength(); j++) {
                     if (nextLevel[j].equals(" ") && figureLowestLevel[j].equals("X")) {
                         nextLevel[j] = "X";
                         figureLowestLevel[j] = " ";
@@ -164,19 +181,22 @@ public class Game {
             }
             downLevel++;
         }
-        else if (!canStepBeDone() && downLevel == 3 ) {
-            isOver = true;
-            System.out.println("game.Game Over");
-            System.exit(0);
-        }
-        else if (!canStepBeDone() && downLevel > 3) {
-            checkFilledLines();
-            createNewFigure();
-        }
         else {
-            isOver = true;
-            System.out.println("game.Game Over #2");
-            System.exit(0);
+            if (downLevel == 3) {
+                isOver = true;
+                System.out.println(score);
+                System.exit(0);
+            }
+            else if (downLevel > 3) {
+                buryFallenFigures();
+                checkFilledLines();
+                createNewFigure();
+            }
+            else {
+                isOver = true;
+                System.out.println("Непонятное завершение.");
+                System.exit(0);
+            }
         }
     }
 
@@ -217,17 +237,17 @@ public class Game {
 
     public static void turnFigure() {
         if (!canFigureBeTurned()) return;
+        if (figure.equals(QFigure.ONE)) return;
 
         List<String> toTurnX = Figures.getIndexesOfCellsToTurn(figure);
         List<String> toTurnNull = Figures.getIndexesOfCellsToNull(figure);
 
         int matrixHigh = Figures.getMatrix(figure).length;
-        int leftLevelForExtract = (figure == IFigure.ONE) ? leftLevel-1 : leftLevel;
         int iCount = 0;
         int jCount = 0;
 
         for (int i = downLevel - matrixHigh+1; i <= downLevel; i++) {
-            for (int j = leftLevelForExtract; j < leftLevelForExtract + matrixHigh; j++) {
+            for (int j = leftLevel; j < leftLevel + matrixHigh; j++) {
                 String index = String.valueOf(iCount) + jCount;
                 if (toTurnX.contains(index)) {
                     field.getField()[i][j] = "X";
@@ -242,9 +262,10 @@ public class Game {
             jCount = 0;
         }
         figure = figure.turn();
+        rightLevel = leftLevel + figure.getLength()-1;
     }
 
-    //Метод проверяет, есть ли на поле заполненная линия, и если есть - удаляет ее и затем сдвигает поле moveFieldDown
+    //Checks if there any filled lines on a field and removes if it exists. Next moves field down
     private static void checkFilledLines() {
         //check
         List<Integer> numbersOfFilledLines = new ArrayList<>();
@@ -270,15 +291,16 @@ public class Game {
         }
     }
 
-    //Двигает поле назад после удаления заполненной линии
+    //Moves field down after removing filled lines
     private static void moveFieldDown(int firstLineIndex, int count) {
+        //заменіл Х на О
         for (int i = 0; i < count; i++) {
             for (int x = firstLineIndex; x > 3; x--) {
                 String[] lowerLine = field.getField()[x];
                 String[] upperLine = field.getField()[x - 1];
                 for (int y = 0; y < field.getLength(); y++) {
-                    if (upperLine[y].equals("X") && lowerLine[y].equals(" ")) {
-                        field.getField()[x][y] = "X";
+                    if (upperLine[y].equals("O") && lowerLine[y].equals(" ")) {
+                        field.getField()[x][y] = "O";
                         field.getField()[x - 1][y] = " ";
                     }
                 }
@@ -287,16 +309,16 @@ public class Game {
         score += (count * field.getLength());
     }
 
-//    public void start() throws InterruptedException {
-//        field.printField();
-//        createNewFigure();
-//
-//        while (true) {
-//            field.printField();
-//            Thread.sleep(1000);
-//            stepDown();
-//        }
-//    }
+    //Converts all fallen figures cells to "O"
+    private static void buryFallenFigures() {
+        for (int i = 0; i < field.getHeight(); i++) {
+            for (int j = 0; j < field.getLength(); j++) {
+                if (field.getField()[i][j].equals("X")) {
+                    field.getField()[i][j] = "O";
+                }
+            }
+        }
+    }
+
 }
 
-// СДЕЛАТЬ ВЫВОД НА ЭКРАН И KEY LISTENER , ЧТОБЫ КОМАНДЫ ВЫПОЛНЯЛИСЬ
