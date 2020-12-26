@@ -11,10 +11,9 @@ public class Game {
    private static Field field = new Field();
    private static Figure figure;
    private static boolean isOver;
-   private boolean figureStands;
-   private static int downLevel;             //индекс линии, соответствующий самой нижней клетке фигуры
-   private static int leftLevel;             //индекс крайней левой клетки фигуры
-   private static int rightLevel;            //индекс крайней правой клетки фигуры
+   private static int downLevel;             //Index of a figure floor level
+   private static int leftLevel;             //Index of a figure left level
+   private static int rightLevel;            //Index of a figure right level
    private static int score;
 
     public Game() {
@@ -27,25 +26,36 @@ public class Game {
 
     public static int getScore() {return score;}
 
+    public static void end() {
+        isOver = true;
+    }
+
+    public static boolean isOver() {
+        return isOver;
+    }
+
     // Creates new figure and merges it with the field. First 4 String arrays of the field reserved for new figure
     public static void createNewFigure() {
-        int x = new Random().nextInt(4);
-        int y = new Random().nextInt(2);
-        switch (x) {
-            case 0:
-                figure = GFigure.values()[y];
-                break;
-            case 1:
-                figure = IFigure.values()[y];
-                break;
-            case 2:
-                figure = QFigure.ONE;
-                break;
-            case 3:
-                figure = TFigure.values()[y];
-                break;
-        }
-        mergeFieldAndFigure();
+            int x = new Random().nextInt(5);
+            int y = new Random().nextInt(2);
+            switch (x) {
+                case 0:
+                    figure = GFigure.values()[y];
+                    break;
+                case 1:
+                    figure = IFigure.values()[y];
+                    break;
+                case 2:
+                    figure = QFigure.ONE;
+                    break;
+                case 3:
+                    figure = TFigure.values()[y];
+                    break;
+                case 4 :
+                    figure = ZFigure.values()[y];
+                    break;
+            }
+            mergeFieldAndFigure();
     }
 
     private static void mergeFieldAndFigure() {
@@ -66,6 +76,17 @@ public class Game {
         while (downLevel < 3) {
             stepDown();
         }
+    }
+
+    private static boolean canNewFigureBeCreated() {
+        for (int i = 0; i < 4; i++) {
+            for (String cell : field.getField()[i]) {
+                if (cell.equals("X")) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     private static boolean canStepBeDone() {
@@ -184,18 +205,14 @@ public class Game {
         else {
             if (downLevel == 3) {
                 isOver = true;
-                System.out.println(score);
-                System.exit(0);
             }
-            else if (downLevel > 3) {
+            else if (downLevel > 3 && canNewFigureBeCreated()) {
                 buryFallenFigures();
                 checkFilledLines();
                 createNewFigure();
             }
             else {
                 isOver = true;
-                System.out.println("Непонятное завершение.");
-                System.exit(0);
             }
         }
     }

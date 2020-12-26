@@ -1,7 +1,4 @@
 package game;
-
-import figures.*;
-
 import java.util.Arrays;
 
 public class Field {
@@ -12,7 +9,6 @@ public class Field {
         for (String[] line : field) {
             Arrays.fill(line, " ");
         }
-       // Arrays.fill(field[field.length-1], "X");  //test flour
     }
 
     public String[][] getField() {
@@ -25,19 +21,5 @@ public class Field {
 
     public int getHeight() {
         return field.length;
-    }
-
-    public void printField() {
-//        for (int i = 4; i < field.length; i++) {
-//            String stringLine = Arrays.toString(field[i]).replaceAll(",", "");
-//            stringLine = stringLine.substring(1, stringLine.length()-1);
-//            game.ConsoleHelper.print(stringLine);
-//        }
-
-        for(String[] line : field) {
-            String stringLine = Arrays.toString(line).replaceAll(",", "");
-            stringLine = stringLine.substring(1, stringLine.length()-1);
-            ConsoleHelper.print(stringLine);
-        }
     }
 }
